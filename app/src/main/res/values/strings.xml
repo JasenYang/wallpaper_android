@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Wallpaper</string>
+    <string name="title_activity_board">Board</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="sure_upload">Upload</string>
+    <string name="cancel_upload">Cancel</string>
+</resources>
