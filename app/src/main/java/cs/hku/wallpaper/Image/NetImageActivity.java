@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 
 import cs.hku.wallpaper.R;
+import cs.hku.wallpaper.constants.Constants;
 import cs.hku.wallpaper.model.ClassResp;
 import cs.hku.wallpaper.model.ImageAndText;
 import cs.hku.wallpaper.model.ImgResp;
@@ -45,7 +46,7 @@ public class NetImageActivity extends AppCompatActivity {
     GridView gv;
     ArrayList<String> imageUrls = new ArrayList<>();
     ArrayList<String> names = new ArrayList<>();
-    String resource = "http://192.168.1.117:6789/public/";
+    String resource = Constants.IP + "public/";
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler(){
         @Override
