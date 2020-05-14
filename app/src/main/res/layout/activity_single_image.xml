@@ -34,6 +34,7 @@
             android:layout_weight="1"
             android:backgroundTint="#CA1D1D"
             android:text="delete"
+            android:visibility="gone"
             android:textColor="#E3D4D4"
             android:background="#411E1E" />
     </LinearLayout>

@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.dashboard.Upload"></activity>
+        <activity android:name=".ui.local.Upload"></activity>
         <activity android:name=".Image.SingleImage" />
         <activity android:name=".Image.NetImageActivity" />
         <activity
@@ -41,7 +41,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="cs.hku.wallpaper.ui.dashboard.DashboardFragment"
+            android:authorities="cs.hku.wallpaper.ui.local.LocalFragment"
             android:exported="false"
             android:grantUriPermissions="true"
             tools:ignore="WrongManifestParent">

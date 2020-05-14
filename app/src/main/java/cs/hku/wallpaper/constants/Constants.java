@@ -1,7 +1,7 @@
 package cs.hku.wallpaper.constants;
 
 public class Constants {
-    public static String IP = "http://192.168.1.105:6789/";
+    public static String IP = "http://10.95.51.128:6789/";
     /*
      * If you do not want to run go server on local machine,
      * please use below config, which can get service from remote server, I deploy base on alibaba cloud

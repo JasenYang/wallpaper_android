@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="cs.hku.wallpaper.ui.home.HomeFragment"
+        android:name="cs.hku.wallpaper.ui.online.OnlineFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="cs.hku.wallpaper.ui.dashboard.DashboardFragment"
+        android:name="cs.hku.wallpaper.ui.local.LocalFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="cs.hku.wallpaper.ui.notifications.NotificationsFragment"
+        android:name="cs.hku.wallpaper.ui.user.UserFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

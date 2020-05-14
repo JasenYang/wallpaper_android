@@ -1,13 +1,9 @@
-package cs.hku.wallpaper.ui.dashboard;
+package cs.hku.wallpaper.ui.local;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -20,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,9 +42,9 @@ import cs.hku.wallpaper.utils.Util;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class DashboardFragment extends Fragment {
+public class LocalFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private LocalViewModel localViewModel;
 
     ImageView imageView;
     Button setBtn;
@@ -91,10 +86,10 @@ public class DashboardFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
+        localViewModel =
+                ViewModelProviders.of(this).get(LocalViewModel.class);
         root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        localViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
             }

@@ -1,24 +1,15 @@
 package cs.hku.wallpaper;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.huantansheng.easyphotos.EasyPhotos;
-import com.huantansheng.easyphotos.models.album.entity.Photo;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import java.util.ArrayList;
-
-import cs.hku.wallpaper.ui.dashboard.GlideEngine;
 import cs.hku.wallpaper.utils.Util;
 
 public class BoardActivity extends AppCompatActivity {

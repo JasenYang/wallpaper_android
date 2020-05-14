@@ -1,4 +1,4 @@
-package cs.hku.wallpaper.ui.dashboard;
+package cs.hku.wallpaper.ui.local;
 
 import androidx.appcompat.app.AppCompatActivity;
 

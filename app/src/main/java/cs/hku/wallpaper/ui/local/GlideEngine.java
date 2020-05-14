@@ -1,4 +1,4 @@
-package cs.hku.wallpaper.ui.dashboard;
+package cs.hku.wallpaper.ui.local;
 
 import android.content.Context;
 import android.graphics.Bitmap;

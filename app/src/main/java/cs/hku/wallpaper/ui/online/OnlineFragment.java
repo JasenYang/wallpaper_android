@@ -1,9 +1,7 @@
-package cs.hku.wallpaper.ui.home;
+package cs.hku.wallpaper.ui.online;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,19 +26,16 @@ import com.vise.xsnow.http.callback.ACallback;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs.hku.wallpaper.BoardActivity;
 import cs.hku.wallpaper.Image.NetImageActivity;
-import cs.hku.wallpaper.LoginActivity;
 import cs.hku.wallpaper.R;
 import cs.hku.wallpaper.model.ClassResp;
-import cs.hku.wallpaper.model.UserResp;
 
 import static cs.hku.wallpaper.utils.Util.getUid;
 
 
-public class HomeFragment extends Fragment {
+public class OnlineFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private OnlineViewModel onlineViewModel;
     ListView listView;
     ArrayList<String> data;
     View root;
@@ -59,10 +54,10 @@ public class HomeFragment extends Fragment {
     };
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+        onlineViewModel =
+                ViewModelProviders.of(this).get(OnlineViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        onlineViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
             }

@@ -1,16 +1,16 @@
-package cs.hku.wallpaper.ui.notifications;
+package cs.hku.wallpaper.ui.online;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class OnlineViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public OnlineViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("This is home fragment");
     }
 
     public LiveData<String> getText() {
