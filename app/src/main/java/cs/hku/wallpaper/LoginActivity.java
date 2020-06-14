@@ -2,9 +2,15 @@ package cs.hku.wallpaper;
 
 
 import android.app.Activity;
+import android.app.WallpaperManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 
 import android.view.View;
@@ -18,8 +24,10 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
 
-import cs.hku.wallpaper.constants.Constants;
 import cs.hku.wallpaper.model.UserResp;
+import cs.hku.wallpaper.service.SelfWallPaperService;
+import cs.hku.wallpaper.service.WallPaperGravityService;
+import cs.hku.wallpaper.service.WallPaperOrientationService;
 import cs.hku.wallpaper.utils.Util;
 import okhttp3.MediaType;
 
@@ -36,6 +44,7 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        StartService();
         Util.InitNetWork(this);
         InitView();
         SetOnClick();
@@ -43,6 +52,14 @@ public class LoginActivity extends Activity {
             Intent intent = new Intent(LoginActivity.this, BoardActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void StartService(){
+        Intent intent = new Intent(
+                WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+        intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
+                new ComponentName(this, SelfWallPaperService.class));
+        startActivity(intent);
     }
 
     public void InitView(){

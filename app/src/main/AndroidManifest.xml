@@ -23,7 +23,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.local.Upload"></activity>
+        <activity android:name=".service.activity.ServiceStartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".service.SelfWallPaperService"
+            android:permission="android.permission.BIND_WALLPAPER">
+
+            <!-- 为动态壁纸配置intent-filter -->
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <!-- 为动态壁纸配置meta-data -->
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/livewallpapervideo" />
+        </service>
+
+        <activity android:name=".ui.local.Upload" />
         <activity android:name=".Image.SingleImage" />
         <activity android:name=".Image.NetImageActivity" />
         <activity
