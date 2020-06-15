@@ -15,8 +15,12 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import cs.hku.wallpaper.R;
+import cs.hku.wallpaper.service.model.Direction;
+import cs.hku.wallpaper.service.model.Point;
+
 
 public class WallPaperOrientationService {
+    private static int current = -1;
     private static final String TAG = "WallPaper";
     private static int CurrentWallPaper = -1;
     private static SensorManager sm;
@@ -26,13 +30,17 @@ public class WallPaperOrientationService {
     private static float currentDirection = 0;
     private static float[] accelerometerValues = new float[3];
     private static float[] magneticFieldValues = new float[3];
-    private static double previous_z = 200;
     private static WallpaperManager wallpaperManager;
+
+    private static Point pointPhone = new Point(1, 1, 0);
+    private static Point pointEye = new Point(1, 1, 1);
 
     final static SensorEventListener myListener = new SensorEventListener() {
         public void onSensorChanged(SensorEvent sensorEvent) {
-            if (sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
+            if (sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
                 magneticFieldValues = sensorEvent.values.clone();
+//                Log.i(TAG, "onSensorChanged: "+Arrays.toString(sensorEvent.values));
+            }
             if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
                 accelerometerValues = sensorEvent.values.clone();
             try {
@@ -56,7 +64,7 @@ public class WallPaperOrientationService {
             public void onSensorChanged(SensorEvent event) {
                 float[] values = event.values;
                 currentDirection += values[1];
-                changeWallPaper(-90, (float) Math.toDegrees(currentDirection));
+//                changeWallPaper(-90, (float) Math.toDegrees(currentDirection));
                 Log.i(TAG, Arrays.toString(values));
             }
             @Override
@@ -70,9 +78,9 @@ public class WallPaperOrientationService {
         assert sm != null;
         aSensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensor = sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-
         sm.registerListener(myListener, aSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sm.registerListener(myListener, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
     }
 
     private static void calculateOrientation() throws IOException {
@@ -81,57 +89,59 @@ public class WallPaperOrientationService {
         SensorManager.getRotationMatrix(Res, null, accelerometerValues, magneticFieldValues);
         SensorManager.getOrientation(Res, values);
 
-        // 要经过一次数据格式的转换，转换为度
-        double z = (float) Math.toDegrees(values[0]);
-        double x = (float) Math.toDegrees(values[1]);
-        double y = (float) Math.toDegrees(values[2]);
-        Log.i(TAG, z + ":" + x + ":" + y);
-
+        Direction direction = change(Res);
+        Log.i(TAG, "calculateOrientation: "+direction);
+        changeWallPaper(direction);
     }
 
+
+    /**
+     * 新的坐标系---android官方规定的世界坐标系
+     * y轴正方向 --> 正北方
+     * x轴正方向 --> 正东方
+     * z轴正方向 --> 由地面指向天空
+     * @param direction
+     */
     @SuppressLint("ResourceType")
-    private static void changeWallPaper(float x, float y) {
-        Log.i(TAG, String.valueOf(y));
-        if (-100 <= x && x <= -80) {
-            // 此时手机应该垂直于地面
-            if (-10 <= y && y < 10) {
-                // 表示正对北方
-                setWallPaper(R.drawable.wall01);
-            } else if (10 <= y && y < 30) {
-                setWallPaper(R.drawable.wall02);
-            } else if (30 <= y && y < 50 ) {
-                setWallPaper(R.drawable.wall03);
-            } else if (50 <= y && y < 70) {
-                setWallPaper(R.drawable.wall04);
-            } else if (70 <= y && y < 90) {
-                setWallPaper(R.drawable.wall05);
-            } else if (90 <= y && y < 110) {
-                setWallPaper(R.drawable.wall06);
-            } else if (110 <= y && y < 130) {
-                setWallPaper(R.drawable.wall07);
-            } else if (130 <= y && y < 150) {
-                setWallPaper(R.drawable.wall08);
-            } else if (150 <= y && y < 170) {
-                setWallPaper(R.drawable.wall09);
-            } else if (170 <= y && y < -170) {
-                setWallPaper(R.drawable.wall10);
-            } else if (-170 <= y && y < -150) {
-                setWallPaper(R.drawable.wall11);
-            } else if (-150 <= y && y < -130) {
-                setWallPaper(R.drawable.wall12);
-            } else if (-130 <= y && y < -110) {
-                setWallPaper(R.drawable.wall01);
-            } else if (-110 <= y && y < -90) {
-                setWallPaper(R.drawable.wall02);
-            } else if (-90 <= y && y < -70) {
-                setWallPaper(R.drawable.wall03);
-            } else if (-70 <= y && y < -50) {
-                setWallPaper(R.drawable.wall04);
-            } else if (-50 <= y && y < -30) {
-                setWallPaper(R.drawable.wall05);
-            } else if (-30 <= y && y < -10) {
-                setWallPaper(R.drawable.wall06);
+    private static void changeWallPaper(Direction direction) {
+        // 北方
+        if (direction.getY() >0.9 && -0.1 < direction.getX() && direction.getX() < 0.1 && -0.1 < direction.getZ() && direction.getZ() < 0.1) {
+            if (current == 1) {
+                return;
             }
+            setWallPaper(R.drawable.wall01);
+            current = 1;
+            return;
+        }
+
+        // 南方
+        if (direction.getY() < 0.9 && -0.1 < direction.getX() && direction.getX() < 0.1 && -0.1 < direction.getZ() && direction.getZ() < 0.1){
+            if (current == 2) {
+                return;
+            }
+            setWallPaper(R.drawable.wall04);
+            current = 2;
+            return;
+        }
+
+        //西方
+        if (direction.getX() < -0.9 && -0.1 < direction.getY() && direction.getY() < 0.1 && -0.1 < direction.getZ() && direction.getZ() < 0.1){
+            if (current == 3) {
+                return;
+            }
+            setWallPaper(R.drawable.wall02);
+            current = 3;
+            return;
+        }
+
+        // 东方
+        if (direction.getX() > 0.9 && -0.1 < direction.getY() && direction.getY() < 0.1 && -0.1 < direction.getZ() && direction.getZ() < 0.1){
+            if (current == 4) {
+                return;
+            }
+            setWallPaper(R.drawable.wall03);
+            current = 4;
+            return;
         }
     }
     private static void setWallPaper(int Resource){
@@ -142,5 +152,12 @@ public class WallPaperOrientationService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static Direction change(float[] R) {
+        float x = 0;
+        float y = 0;
+        float z = -1;
+        return new Direction(R[0]*x + R[1]*y + R[2]*z, R[3]*x + R[4]*y + R[5]*z, R[6]*x + R[7]*y + R[8]*z);
     }
 }

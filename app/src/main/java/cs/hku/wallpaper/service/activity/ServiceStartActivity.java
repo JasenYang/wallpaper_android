@@ -26,6 +26,6 @@ public class ServiceStartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        WallPaperOrientationService.StartGYROSCOPEListener(this);
+        WallPaperOrientationService.StartOrientationListener(this);
     }
 }
