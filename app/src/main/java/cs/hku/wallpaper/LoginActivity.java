@@ -7,10 +7,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 
 import android.view.View;
@@ -25,9 +21,6 @@ import com.vise.xsnow.http.callback.ACallback;
 
 
 import cs.hku.wallpaper.model.UserResp;
-import cs.hku.wallpaper.service.SelfWallPaperService;
-import cs.hku.wallpaper.service.WallPaperGravityService;
-import cs.hku.wallpaper.service.WallPaperOrientationService;
 import cs.hku.wallpaper.utils.Util;
 import okhttp3.MediaType;
 

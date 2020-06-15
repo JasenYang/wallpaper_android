@@ -8,7 +8,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.nfc.Tag;
 import android.util.Log;
 
 import java.io.IOException;
@@ -16,7 +15,6 @@ import java.util.Arrays;
 
 import cs.hku.wallpaper.R;
 import cs.hku.wallpaper.service.model.Direction;
-import cs.hku.wallpaper.service.model.Point;
 
 
 public class WallPaperOrientationService {
@@ -31,9 +29,6 @@ public class WallPaperOrientationService {
     private static float[] accelerometerValues = new float[3];
     private static float[] magneticFieldValues = new float[3];
     private static WallpaperManager wallpaperManager;
-
-    private static Point pointPhone = new Point(1, 1, 0);
-    private static Point pointEye = new Point(1, 1, 1);
 
     final static SensorEventListener myListener = new SensorEventListener() {
         public void onSensorChanged(SensorEvent sensorEvent) {
@@ -54,24 +49,6 @@ public class WallPaperOrientationService {
         public void onAccuracyChanged(Sensor sensor, int accuracy) {}
     };
 
-    public static void StartGYROSCOPEListener(Activity activity) {
-        wallpaperManager = WallpaperManager.getInstance(activity);
-        sm = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
-        assert sm != null;
-        Sensor gSensor = sm.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        sm.registerListener(new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                float[] values = event.values;
-                currentDirection += values[1];
-//                changeWallPaper(-90, (float) Math.toDegrees(currentDirection));
-                Log.i(TAG, Arrays.toString(values));
-            }
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {}
-        }, gSensor, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
     public static void StartOrientationListener(Activity activity) {
         wallpaperManager = WallpaperManager.getInstance(activity);
         sm = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
@@ -80,7 +57,6 @@ public class WallPaperOrientationService {
         mSensor = sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         sm.registerListener(myListener, aSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sm.registerListener(myListener, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
     }
 
     private static void calculateOrientation() throws IOException {
