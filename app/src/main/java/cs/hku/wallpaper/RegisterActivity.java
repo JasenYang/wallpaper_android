@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vise.xsnow.http.ViseHttp;
@@ -24,6 +25,7 @@ public class RegisterActivity extends Activity {
     EditText register_username;
     EditText register_password;
     Button registerBtn;
+    TextView toLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class RegisterActivity extends Activity {
         register_username = findViewById(R.id.register_username);
         register_password = findViewById(R.id.register_password);
         registerBtn = findViewById(R.id.registerBtn);
+        toLogin = findViewById(R.id.to_login);
     }
 
     public void SetOnClick(){
@@ -79,6 +82,14 @@ public class RegisterActivity extends Activity {
                                 Toast.makeText(getApplicationContext(), "Register failed, " + errMsg + "; code = " + errCode, Toast.LENGTH_SHORT).show();
                             }
                         });
+            }
+        });
+
+        toLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
     }

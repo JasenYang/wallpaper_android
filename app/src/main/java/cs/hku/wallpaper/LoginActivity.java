@@ -37,7 +37,6 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        StartService();
         Util.InitNetWork(this);
         InitView();
         SetOnClick();
@@ -45,14 +44,6 @@ public class LoginActivity extends Activity {
             Intent intent = new Intent(LoginActivity.this, BoardActivity.class);
             startActivity(intent);
         }
-    }
-
-    public void StartService(){
-        Intent intent = new Intent(
-                WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-        intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
-                new ComponentName(this, SelfWallPaperService.class));
-        startActivity(intent);
     }
 
     public void InitView(){
@@ -74,6 +65,10 @@ public class LoginActivity extends Activity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //todo 暂时打开开关
+                Intent intent = new Intent(LoginActivity.this, LeftDrawer.class);
+                startActivity(intent);
+                //todo 上面两行代码需要删除
 
                 String username = login_username.getText().toString();
                 String password = login_password.getText().toString();

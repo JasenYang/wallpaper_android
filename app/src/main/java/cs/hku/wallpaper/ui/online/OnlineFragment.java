@@ -56,7 +56,7 @@ public class OnlineFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         onlineViewModel =
                 ViewModelProviders.of(this).get(OnlineViewModel.class);
-        root = inflater.inflate(R.layout.fragment_home, container, false);
+        root = inflater.inflate(R.layout.fragment_old_home, container, false);
         onlineViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
