@@ -20,6 +20,7 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 
 
+import cs.hku.wallpaper.main.Drawer;
 import cs.hku.wallpaper.model.UserResp;
 import cs.hku.wallpaper.utils.Util;
 import okhttp3.MediaType;
@@ -66,7 +67,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //todo 暂时打开开关
-                Intent intent = new Intent(LoginActivity.this, LeftDrawer.class);
+                Intent intent = new Intent(LoginActivity.this, Drawer.class);
                 startActivity(intent);
                 //todo 上面两行代码需要删除
 
